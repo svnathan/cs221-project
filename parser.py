@@ -3,8 +3,7 @@ import sys
 
 def main(argv):
     dataset_dir = argv.pop(0)
-    print dataset_dir
-    with open(dataset_dir+'yelp_academic_dataset_business.json') as f:
+    with open(dataset_dir+'yelp_academic_dataset_review.json') as f:
         for line in f:
             print line
             break
