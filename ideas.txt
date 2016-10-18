@@ -1,0 +1,5 @@
+ - rating prediction based on reviews
+ - predicting the type of restuarants based on reviews
+ - predict rating based on region and cuisine
+ - cuisine of a restuarant using the review, location
+ - recommendor system for restuarant specific cuisine recommendations.
