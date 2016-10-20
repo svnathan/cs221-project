@@ -1,3 +1,28 @@
+ NEW IDEAS
+ ----------------------------------------------
+1) trip planner - given a starting location and time duration recommend a itenerary of attractions to visit and places to eat using a constrained search algorithm basing costs and constraints on distance between locations/travel time, reviews of places, hours of operation, etc...
+2) tourist meal planner - use yelp dataset; given city(location) and home base(hotel lat/long?), time start, time end, and cuisine preferences/restrictions recommend iternerary of places to eat during your trip using a constrained search algorithm basing costs and constraints on distance between locations/travel time, reviews of places, restaurant category, hours of operation, etc...
+3) write the most useful review, make the most money - Epinions (Users can register for free and start writing subjective reviews about many different types of items (software, music, television show, hardware, office appliances, ...). A peculiar characteristics of Epinions is that users are paid according to how much a review is found useful), train on set of reviews looking at the item, the text and the usefulness and trustworthiness ratings, output reviews for items that would recieve higher usefulness and trustworthiness ratings
+4)
+5)
+6)
+7)
+
+
+ ----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
  - rating prediction based on reviews
  - predicting the type of restuarants based on reviews
  - predict rating based on region and cuisine
