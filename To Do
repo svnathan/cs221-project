@@ -1,0 +1,3 @@
+Problem Stmt: Suggest posts that a user can answer
+
+Verification: For this user, we take the post that he actually answered and a bunch of random posts and we try to guess the post he actually answered. We build a social network of posts, where the links are between posts with the same link. We do NLP analysis between each of these random posts and all the posts that he has answered previously.
