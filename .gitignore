@@ -21,6 +21,7 @@ parts/
 sdist/
 var/
 dataset/
+pickle/
 .DS_Store
 *.egg-info/
 .installed.cfg
