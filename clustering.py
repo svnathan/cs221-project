@@ -37,7 +37,7 @@ def main():
 	for Cmty in CmtyV:
 		community_list = []
 		for NI in Cmty:
-			community_list.append(NI)
+			community_list.append(str(NI))
 		communities_list_list.append(community_list)
 
 	questions_list = get_questionsid_list()
@@ -55,15 +55,28 @@ def main():
 
 	for row in doc.findall('row'):
 		if row.get('CreationDate').split('-')[0] < '2016' and row.get('PostTypeId') == '2' and row.get('OwnerUserId') is not None:
-			users_questions_dict[row.get('OwnerUserId')].append(row.get('users_questions_dict'))
+			users_questions_dict[row.get('OwnerUserId')].append(row.get('ParentId'))
 
 	randomusersid_list_list = get_randomusersid_list_list()
+
+	user_probability_list_dict = []
+	for idx in range(100):
+		user_probability_list_dict.append({})
+		for user in randomusersid_list_list[idx]:
+			user_probability_list_dict[idx][user] = 0
 
 	for idx in range(100):
 		question = questions_list[idx]
 		users = randomusersid_list_list[idx]
 		for user in users:
-			questions = user_posts_dict[user]
+			questions = users_questions_dict[user]
+			if questions is not None:
+				for user_question in questions:
+					for community in communities_list_list:
+						if question in community and user_question in community:
+							user_probability_list_dict[idx][user] += float(1)
+
+	check_answer(user_probability_list_dict)
 	
 if __name__ == '__main__':
 	main()
