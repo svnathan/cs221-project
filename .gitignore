@@ -22,6 +22,7 @@ sdist/
 var/
 dataset/
 pickle/
+graph.txt
 .DS_Store
 *.egg-info/
 .installed.cfg

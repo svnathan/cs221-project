@@ -82,7 +82,7 @@ def test_process():
 	with open(current_dir + '/pickle/randomusersid_list_list.pkl','w') as f:
 		pickle.dump(randomusersid_list_list,f)
 
-def get_usersid_list():				# returns list of users who answered the question (should not call this in your module)
+def get_usersid_list():					# returns list of users who answered the question (should not call this in your module)
 	with open(current_dir + '/pickle/usersid_list.pkl','rb') as f:
 		usersid_list = pickle.load(f)
 	return usersid_list
@@ -114,7 +114,7 @@ def check_answer(user_probability_list_dict):	# argument is list of dictionaries
 				max_val_user = user
 		if max_val_user == usersid_list[list_idx]:
 			correct_count += 1
-	print 'Number of correct guesses: ', correct_count		# prints the number of correct guesses, where a correct guess is obtained by looking at the highest probability
+	print 'Number of correct guesses:\t', correct_count		# prints the number of correct guesses, where a correct guess is obtained by looking at the highest probability
 
 if __name__ == '__main__':
 	test_process()
