@@ -1,4 +1,3 @@
-import pandas
 from scipy import spatial
 import sys
 import xml.etree.ElementTree as et
