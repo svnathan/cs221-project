@@ -67,7 +67,7 @@ def compute_similarity(q1, q2):
 
 def get_tags():
 	tag_list = []
-	tree = et.parse("dataset\\Tags.xml")
+	tree = et.parse("dataset/Tags.xml")
 	#tree = et.parse(current_dir + '/dataset/Tags.xml')
 	doc = tree.getroot()
 
@@ -80,7 +80,7 @@ def get_tags():
 def get_answer_votes():
 	answer_vote_dict = {}
 
-	tree = et.parse("dataset\\Votes.xml")
+	tree = et.parse("dataset/Votes.xml")
 	#tree = et.parse(current_dir + '/dataset/Votes.xml')
 	doc = tree.getroot()
 
@@ -104,7 +104,7 @@ def get_answer_votes():
 def get_questions_and_answers(tag_list):
 	question_tags_dict = {}
 	user_answer_question_dict = {}
-	tree = et.parse("dataset\\Posts.xml")
+	tree = et.parse("dataset/Posts.xml")
 	#tree = et.parse(current_dir + '/dataset/Posts.xml')
 	doc = tree.getroot()
 
@@ -133,12 +133,4 @@ def get_questions_and_answers(tag_list):
 
 	return user_answer_question_dict, question_tags_dict
 
-
 main()
-
-
-
-
-
-
-

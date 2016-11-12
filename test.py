@@ -5,7 +5,7 @@ import pickle
 
 usersid_list = []					# 100 users who answered the questions
 questionsid_list = []				# 100 questions(posts) that you must guess
-questionscontent_list = []				# 100 questions(posts) that you must guess
+questionscontent_list = []			# 100 questions(posts) that you must guess
 randomusersid_list_list = []		# 2d 100*100 list, where each inner list consists of 99 random users and 1 user who answered the question
 									# all 3 lists have corresponding index numbers and all items are strings
 
@@ -112,6 +112,7 @@ def check_answer(user_probability_list_dict):	# argument is list of dictionaries
 			if score > max_val_score:
 				max_val_score = score
 				max_val_user = user
+		usersid_list = get_usersid_list()
 		if max_val_user == usersid_list[list_idx]:
 			correct_count += 1
 	print 'Number of correct guesses:\t', correct_count		# prints the number of correct guesses, where a correct guess is obtained by looking at the highest probability
