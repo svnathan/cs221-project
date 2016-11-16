@@ -2,6 +2,12 @@ import sys
 import xml.etree.ElementTree as et
 import random
 import pickle
+import platform
+
+WIN_UNIX = True if platform.system() == 'Windows' else False
+current_dir = sys.argv.pop(0)
+PATH_PREFIX = '' if WIN_UNIX else current_dir + '/'
+SLASH = '\\' if WIN_UNIX else '/'
 
 usersid_list = []					# 100 users who answered the questions
 questionsid_list = []				# 100 questions(posts) that you must guess
@@ -9,24 +15,23 @@ questionscontent_list = []			# 100 questions(posts) that you must guess
 randomusersid_list_list = []		# 2d 100*100 list, where each inner list consists of 99 random users and 1 user who answered the question
 									# all 3 lists have corresponding index numbers and all items are strings
 
-current_dir = sys.argv.pop(0)
 
 def test_process():
 	user_postsansweredcount_dict = {}
-	tree = et.parse(current_dir + '/dataset/Users.xml')
+	tree = et.parse(PATH_PREFIX+'dataset'+SLASH+'Users.xml')
 	doc = tree.getroot()
 
 	for row in doc.findall('row'):
 		user_postsansweredcount_dict[row.get('Id')] = 0
 
-	tree = et.parse(current_dir + '/dataset/Posts.xml')
+	tree = et.parse(PATH_PREFIX+'dataset'+SLASH+'Posts.xml')
 	doc = tree.getroot()
 
 	for row in doc.findall('row'):
 		if row.get('CreationDate').split('-')[0] < '2016' and row.get('PostTypeId') == '2' and row.get('OwnerUserId') is not None:
 			user_postsansweredcount_dict[row.get('OwnerUserId')] += 1
 
-	tree = et.parse(current_dir + '/dataset/Posts.xml')
+	tree = et.parse(PATH_PREFIX+'dataset'+SLASH+'Posts.xml')
 	doc = tree.getroot()
 
 	userid_questionsid_dict = {}	# dictionary of users who answered the question to questions
@@ -54,7 +59,7 @@ def test_process():
 			randomusersid_list_list.append(lst)
 			idx += 1
 
-	tree = et.parse(current_dir + '/dataset/Users.xml')
+	tree = et.parse(PATH_PREFIX+'dataset'+SLASH+'Users.xml')
 	doc = tree.getroot()
 
 	users_list = []					# list of all users
@@ -69,36 +74,38 @@ def test_process():
 				randomusersid_list_list[list_idx].append(userid)
 				idx += 1
 		random.shuffle(randomusersid_list_list[list_idx])
-
-	with open(current_dir + '/pickle/usersid_list.pkl','w') as f:
+	print PATH_PREFIX+'pickle'+SLASH+'usersid_list.pkl'
+	with open(PATH_PREFIX+'pickle'+SLASH+'usersid_list.pkl','w') as f:
 		pickle.dump(usersid_list,f)
 
-	with open(current_dir + '/pickle/questionsid_list.pkl','w') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'questionsid_list.pkl','w') as f:
 		pickle.dump(questionsid_list,f)
 
-	with open(current_dir + '/pickle/questionscontent_list.pkl','w') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'questionscontent_list.pkl','w') as f:
 		pickle.dump(questionscontent_list,f)
 
-	with open(current_dir + '/pickle/randomusersid_list_list.pkl','w') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'randomusersid_list_list.pkl','w') as f:
 		pickle.dump(randomusersid_list_list,f)
 
 def get_usersid_list():					# returns list of users who answered the question (should not call this in your module)
-	with open(current_dir + '/pickle/usersid_list.pkl','rb') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'usersid_list.pkl','rb') as f:
 		usersid_list = pickle.load(f)
+	f.close()
 	return usersid_list
 
 def get_questionsid_list():				# returns list of questions id
-	with open(current_dir + '/pickle/questionsid_list.pkl','rb') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'questionsid_list.pkl','rb') as f:
 		questionsid_list = pickle.load(f)
+	f.close()
 	return questionsid_list
 
 def get_questionscontent_list():		# returns list of questions content (not id!)
-	with open(current_dir + '/pickle/questionscontent_list.pkl','rb') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'questionscontent_list.pkl','rb') as f:
 		questionscontent_list = pickle.load(f)
 	return questionscontent_list
 
 def get_randomusersid_list_list():		# returns 2d 100*100 list of list of users
-	with open(current_dir + '/pickle/randomusersid_list_list.pkl','rb') as f:
+	with open(PATH_PREFIX+'pickle'+SLASH+'randomusersid_list_list.pkl','rb') as f:
 		randomusersid_list_list = pickle.load(f)
 	return randomusersid_list_list
 
