@@ -6,6 +6,8 @@ import math
 import test
 import operator
 import collections
+import string
+import re
 
 def main():
     rndm_users = test.get_randomusersid_list_list()
@@ -129,9 +131,37 @@ def parseDataset():
 
 def filterDataset(dataset, userList):
     posts = {}
+#     i = 0
     for user in userList:
         if user in dataset:
-            posts[user] = dataset[user]
+            posts[user] = preprocessStrings(dataset[user])
+#             if i == 0:
+#                 print dataset[user]
+#                 print posts[user]
+#             i = 1
     return posts
+
+def preprocessStrings(stringList):
+    returnList = []
+    for s in stringList:
+        returnList.append(strip_punctuations(\
+                        dehyphenateWords(\
+                        removeURLs(\
+                        s.lower()\
+                        ))))
+    return returnList
+    
+def strip_punctuations(s):
+    si = list(s)
+    for i,j in enumerate(si):
+        if j in string.punctuation:
+            si[i] = ''
+    return ''.join(si)
+    
+def removeURLs(s):
+    return re.sub(r'http.*[/ a-zA-Z0-9."]','',s,re.MULTILINE)
+    
+def dehyphenateWords(s): # This function replaces hyphenated words with words seperated by space
+    return re.sub(r'-',' ',s,re.MULTILINE)
 
 main()
