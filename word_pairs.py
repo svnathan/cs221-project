@@ -5,8 +5,7 @@ import string
 def createWordTuples(inputList,nMax):
 # inputList - The input list of words. We expect the words to be preprocessed with no punctuations
 # n         - The number of words in a tuple.
-# return    - This function returns a list of all possible n-tuples. Each n-tuple is stored
-#               as a LIST.
+# return    - This function returns a list of all possible n-tuples.
 
     def addWordToList(wordList,num,wordNum):
         if num > 2:
