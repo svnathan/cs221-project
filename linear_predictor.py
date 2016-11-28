@@ -144,11 +144,13 @@ def filterDataset(dataset, userList):
 def preprocessStrings(stringList):
     returnList = []
     for s in stringList:
-        returnList.append(strip_punctuations(\
+        returnList.append(\
+                        removeCommonWords(\
+                        strip_punctuations(\
                         dehyphenateWords(\
                         removeURLs(\
                         s.lower()\
-                        ))))
+                        )))))
     return returnList
     
 def strip_punctuations(s):
@@ -163,5 +165,24 @@ def removeURLs(s):
     
 def dehyphenateWords(s): # This function replaces hyphenated words with words seperated by space
     return re.sub(r'-',' ',s,re.MULTILINE)
+    
+def removeCommonWords(s):
+    commonWords = ['all','a','after','the','will','they','there','their','then',\
+                    'am','an','you','your','them','your','youre','theres','beside',\
+                    'besides','in','on','he','hes','she','shes','do','to','by','if',\
+                    'of','as','or','what','when','why','also','is','might','may',\
+                    'be','have','having','gave','give','giving','not','no','many',\
+                    'this','our','from','find','finding','me','my','that','but',\
+                    'does','doesnt','like','so','it','its','can','for','and','are',\
+                    'could','would','should','each','where','we','i','get','gets',\
+                    'now','too','any','more','take','taken','taking','been','use',\
+                    'used','still','dont','couldnt','wouldnt','shouldnt','was']
+                    
+    s_list = s.split()
+    s_list_new = []
+    for word in s_list:
+        if word not in commonWords:
+            s_list_new.append(word)
+    return ' '.join(s_list_new)
 
 main()
