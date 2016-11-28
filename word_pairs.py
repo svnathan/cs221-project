@@ -31,7 +31,7 @@ def createWordTuples(inputList,nMax):
         newList = addWordToList([inputList[x]],nMax,x)
         if len(newList) > 0:
             for item in newList:
-                wordTuples.append(sorted(item))
+                wordTuples.append(tuple(sorted(item)))
 #     print len(wordTuples)
     return wordTuples
 
