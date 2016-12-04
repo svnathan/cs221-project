@@ -12,6 +12,9 @@ def main():
 	tree = et.parse(current_dir + '/dataset/Posts.xml')
 	doc = tree.getroot()
 	
+	# tree = et.parse(current_dir + '/dataset/Posts.xml')
+	# doc = tree.getroot()
+	
 	for row in doc.findall('row'):
 		if row.get('PostTypeId') == '1' and row.get('OwnerUserId') is not None:
 			graph.AddNode(int(row.get('Id')))
@@ -19,6 +22,9 @@ def main():
 			if tags is not None:
 				tags_list = tags.split('><')
 				for tag in tags_list:
+			# if tags is not None:
+			# 	tags_list = tags.split('><')
+			# 	for tag in tags_list:
 					tag = re.sub('[<>]', '', tag)
 					if tag not in tag_posts_dict:
 						tag_posts_dict[tag] = [row.get('Id')]
@@ -28,6 +34,8 @@ def main():
 	for tag, posts in tag_posts_dict.iteritems():
 		for src_post in posts:
 			for dest_post in posts:
+		# for src_post in posts:
+		# 	for dest_post in posts:
 				if src_post != dest_post and not graph.IsEdge(int(src_post), int(dest_post)):
 					graph.AddEdge(int(src_post), int(dest_post))
 	
@@ -57,6 +65,10 @@ def main():
 		if row.get('CreationDate').split('-')[0] < '2016' and row.get('PostTypeId') == '2' and row.get('OwnerUserId') is not None:
 			users_questions_dict[row.get('OwnerUserId')].append(row.get('ParentId'))
 
+	# for row in doc.findall('row'):
+	# 	if row.get('CreationDate').split('-')[0] < '2016' and row.get('PostTypeId') == '2' and row.get('OwnerUserId') is not None:
+	# 		users_questions_dict[row.get('OwnerUserId')].append(row.get('ParentId'))
+
 	randomusersid_list_list = get_randomusersid_list_list()
 
 	user_probability_list_dict = []
@@ -76,7 +88,7 @@ def main():
 						if question in community and user_question in community:
 							user_probability_list_dict[idx][user] += float(1)
 
-	check_answer(user_probability_list_dict)
+	check_answer_range(user_probability_list_dict)
 	
 if __name__ == '__main__':
 	main()
