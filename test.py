@@ -44,6 +44,7 @@ def test_process():
 		for row in doc.findall('row'):
 			if row.get('Id') == postid:
 				userid_questionscontent_dict[userid] = row.get('Body')
+				# userid_questionscontent_dict[userid] = row.get('Title')
 				break
 
 	idx = 0
@@ -74,7 +75,6 @@ def test_process():
 				randomusersid_list_list[list_idx].append(userid)
 				idx += 1
 		random.shuffle(randomusersid_list_list[list_idx])
-	print PATH_PREFIX+'pickle'+SLASH+'usersid_list.pkl'
 	with open(PATH_PREFIX+'pickle'+SLASH+'usersid_list.pkl','w') as f:
 		pickle.dump(usersid_list,f)
 
@@ -123,6 +123,40 @@ def check_answer(user_probability_list_dict):	# argument is list of dictionaries
 		if max_val_user == usersid_list[list_idx]:
 			correct_count += 1
 	print 'Number of correct guesses:\t', correct_count		# prints the number of correct guesses, where a correct guess is obtained by looking at the highest probability
+
+def check_answer_range(user_probability_list_dict):	# argument is list of dictionaries, where the mapping of dictionaries is from users to probability that they answered the question
+	correct_count = [0,0, 0, 0, 0]
+	q = get_questionsid_list()
+
+	questionid_userids_dict = {}
+
+	tree = et.parse("dataset/Posts.xml")
+	doc = tree.getroot()
+
+	for row in doc.findall('row'):
+		if row.get('CreationDate').split('-')[0] >= '2016' and row.get('PostTypeId') == '2' and row.get('OwnerUserId') is not None:
+			if row.get('ParentId') not in questionid_userids_dict: questionid_userids_dict[row.get('ParentId')] = []
+			questionid_userids_dict[row.get('ParentId')].append(row.get('OwnerUserId'))
+
+	for user_probability_dict in user_probability_list_dict:
+		list_idx = user_probability_list_dict.index(user_probability_dict)
+
+		sorted_user_probability_list = sorted(user_probability_dict.items(), key=lambda (k,v): v, reverse=True)
+		usersid_list = get_usersid_list()
+		for i in range(len(correct_count)):
+			unique_prob = 0
+			last_prob = 1.5
+			recommended_users = []
+			for j in range(len(sorted_user_probability_list)):
+				if sorted_user_probability_list[j][1] < last_prob:
+					last_prob = sorted_user_probability_list[j][1]
+					unique_prob += 1
+				if unique_prob > i+1 : break
+				recommended_users.append(sorted_user_probability_list[j][0])
+				
+			if len(set(questionid_userids_dict[q[list_idx]]) & set(recommended_users)) > 0:
+				correct_count[i] += 1
+	print 'Correct guesses:\t\t\t', correct_count		# prints the number of correct guesses, where a correct guess is obtained by looking at the highest probability
 
 if __name__ == '__main__':
 	test_process()

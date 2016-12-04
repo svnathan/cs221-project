@@ -18,7 +18,7 @@ def main():
 	rndm_users = test.get_randomusersid_list_list()
 	for i in range(100):
 		results.append(recommendation(q[i], rndm_users[i], questions, answers, votes))
-	test.check_answer(results)
+	test.check_answer_range(results)
 
 def recommendation(q, users, questions, answers, votes):
 	recs = {}

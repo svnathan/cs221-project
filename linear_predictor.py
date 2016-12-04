@@ -24,7 +24,7 @@ def main():
         probabilityMatrix = computeLikelihood(weights,question)
         print probabilityMatrix
         resultList.append(probabilityMatrix)
-    test.check_answer(resultList)
+    test.check_answer_range(resultList)
 
 def linear_predictor(posts):
     phi_X = {} # Matrix of feature vectors - one vector for each user. Sparse representation.
