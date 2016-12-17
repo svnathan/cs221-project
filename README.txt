@@ -7,21 +7,21 @@ Note:
 
 Files:
 1) Elevator Pitch.docx				- Draft of the pitch for the poster presentation
-2) cf_test.py 						- 
+2) cf_test.py 						- optimized version of collaborative filtering with clustered tag features
 3) clustering.py 					- Implementation of clustering algorithm
-4) collab_filter_clean.py 			- 
-5) collab_filter_edit.py 			- 
-6) collab_filter_features.py 		-
+4) collab_filter_clean.py 			- naive un-optimized milestone version of collaborative filtering model
+5) collab_filter_edit.py 			- optimized version of collaborative filtering with single tag features
+6) collab_filter_features.py 		- extraction of most frequent pairs and triples of tags (not used ultimately)
 7) dataset 							- Folder containing the entire dataset
-8) kmeans_tags.py 					- Implementation of k-means for community detection
+8) kmeans_tags.py 					- clusters tags based on common answers and/or questions for collaborative filtering in cf_test.py
 9) linear_predictor.py 				- Script that uses linear predictor for recommending likely users
 10) nlp.py 							- Implementation of NLP algorithms for text similarity
 11) pickle 							- Folder containing preprocessed data that is used by various algorithms 
 12) script.py 						- Main script file which runs different algorithms and tests the output
 13) snap.py 						- Essential file to run community detection (Provided by Stanford SNAP group)
-14) stem_tags.py 					-
+14) stem_tags.py 					- clusters tags based on semantic similarity for collaborative filtering in cf_test.py
 15) test.py 						- Script to test the output of the different algorithms and print the accuracies
-16) word_pairs.py 					-
+16) word_pairs.py 					-  extraction of most frequent pairs and triples of tags (not used ultimately)
 
 Setup and Execution Instructions:
 1) Download the entire dataset from https://archive.org/download/stackexchange/cs.stackexchange.com.7z
